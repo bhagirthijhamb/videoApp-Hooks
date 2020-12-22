@@ -3,28 +3,17 @@ import SearchBar from './SearchBar';
 import youtube from './../apis/youtube';
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
+import useVideos from './../hooks/useVideos';
 
 const App = () => {
-  const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videos, search] = useVideos('buildings');
 
   useEffect(() => {
-    onTermSubmit('plants')
-  }, [])
+    setSelectedVideo(videos[0]);
+  }, [videos])
 
-  // callback function defined as arrow function
-  const onTermSubmit = async (term) => {
-    // console.log(term)
-    // youtube is now a preconfigured instance of axios
-    const response = await youtube.get('/search', {
-      params: {
-        q: term
-      }
-    })
-    // console.log(response.data.items)
-    setVideos(response.data.items);
-    setSelectedVideo(response.data.items[0]);
-  }
+  // setSelectedVideo(response.data.items[0]);
 
   // callback function defined as arrow function
   // const onVideoSelect = (video) => {
@@ -34,7 +23,8 @@ const App = () => {
 
   return (
       <div className="ui container">
-        <SearchBar onTermSubmit={onTermSubmit} />
+        {/* <SearchBar onTermSubmit={onTermSubmit} /> */}
+        <SearchBar onTermSubmit={search} />
         <div className="ui grid">
           <div className="ui row">
             <div className="eleven wide column">
