@@ -10,8 +10,15 @@ import useVideos from './../hooks/useVideos';
 // VideoList, VideoItem, VideoDetail components are already functional compoenents
 const App = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  // use the custom hook we created
+  // useVideos() expects a default search term
+  // when we cann useVideos we get an array that has two elements inside of it
+  // a list of videos and a function we can use to search for videos
+  // destructure those
   const [videos, search] = useVideos('buildings');
 
+
+  // we do setSelectedVideo() when the videos is updated
   useEffect(() => {
     setSelectedVideo(videos[0]);
   }, [videos])
