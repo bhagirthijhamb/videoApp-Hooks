@@ -5,6 +5,9 @@ import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 import useVideos from './../hooks/useVideos';
 
+// App makes use of state and Lifecycle methods
+// SearchBar uses state
+// VideoList, VideoItem, VideoDetail components are already functional compoenents
 const App = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videos, search] = useVideos('buildings');
@@ -12,6 +15,7 @@ const App = () => {
   useEffect(() => {
     setSelectedVideo(videos[0]);
   }, [videos])
+
 
   // setSelectedVideo(response.data.items[0]);
 
@@ -34,6 +38,8 @@ const App = () => {
               <VideoList 
                 videos={videos} 
                 // onVideoSelect={(video) => setSelectedVideo(video)} 
+                // we are taking one argument and passing it to the function
+                // so we can write it like below (no purpose of making the arrow function)
                 onVideoSelect={setSelectedVideo} 
               />
             </div>
@@ -44,3 +50,7 @@ const App = () => {
 }
 
 export default App;
+
+  // useEffect(() => {
+  
+  // }, []) works like ComponentDidMount because it runs the function inside useEffect only one time when the component mounts
